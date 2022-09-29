@@ -24,6 +24,9 @@ extension PopupViewProtocol where Self: UIView {
         frame.origin.x = self.frame.width/2 - frame.width/2
         return frame
     }
+    fileprivate func updateOriginalFrameWidth() {
+        self.originalFrame.size.width = self.frame.width
+    }
     func setupPopupFrame() {
         if self.originalFrame == CGRect.zero {
             self.originalFrame = self.popupView.frame
@@ -46,6 +49,7 @@ extension PopupViewProtocol where Self: UIView {
             UIView.animate(withDuration: duration) {
                 if show {
                     self.popupView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.updateOriginalFrameWidth()
                     self.popupView.frame = self.originalFrame
                 }
                 self.show = show
